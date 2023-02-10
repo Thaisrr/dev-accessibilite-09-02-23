@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Les liens</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap');
+
+    @font-face {
+      src: url("./assets/fonts/dfa/Accessible-DfA-Regular.ttf"), url("./assets/fonts/dfa/Accessible-DfA-Regular.otf") format("opentype");
+      font-family: 'Dfa';
+    }
+
+    *  {
+      box-sizing: border-box;
+    }
+    *:focus {
+      outline: solid #ff8034 2px;
+    }
+
+    :root {
+      --main: #c28800;
+      --secondary: #2f9b9b;
+    }
+
+    .contrast {
+      --main: #7b2c22;
+      --secondary: #34436a;
+    }
+
+    a:link {
+      color: var(--secondary);
+    }
+
+    body {
+      font-size: 1rem;
+      background: white;
+      font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
+    }
+
+    .dyslexia {
+      font-family: 'Dfa', 'Atkinson Hyperlegible', Arial, sans-serif;
+    }
+
+    h1 {
+      font-size: 2em;
+    }
+    p a:link{
+      color: var(--main);
+    }
+    .v-hidden {
+      transform: translate(-1000px);
+      transition: .3s ease;
+      display: block;
+    }
+
+    .v-hidden:focus {
+      transform: translate(0);
+    }
+
+    .breadcrumb {
+      background: rgba(213, 211, 211, 0.42);
+    }
+
+    .breadcrumb ol {
+      list-style: none;
+      padding-left: 0;
+      display: flex;
+      gap: 10px;
+    }
+
+    .breadcrumb li:not(:last-child):after {
+      content: ">";
+    }
+
+    .breadcrumb a:link {
+      text-decoration: none;
+    }
+
+    .breadcrumb a[aria-current="page"] {
+      text-decoration: solid 1px ;
+      color: var(--main);
+    }
+    .bigger {
+      font-size: 2em; /* 2* la taille du parent ( ici body ) */
+      line-height: 2.5em;
+    }
+
+    @media screen and (max-width: 800px){
+      body {
+        background: #d8d893;
+      }
+    }
+
+    @media print {
+      body {
+        text-decoration: dotted;
+      }
+    }
+
+    .menu > ul {
+      list-style: none;
+      display: flex;
+    }
+
+    .menu > ul > li > * {
+      display: block;
+      color: var(--main);
+      text-decoration: none;
+      font-size: 1.2em;
+      padding: 10px 15px;
+    }
+
+    .menu > ul > li > *:hover {
+      background: #d8d893;
+    }
+
+    .menu > ul > li.drop-container > .dropdown {
+      display: none;
+      margin: 20px;
+      border: solid 2px blueviolet;
+      transition: all 300ms 1s ease;
+      overflow: hidden;
+    }
+
+    .menu > ul > li.drop-container:hover .dropdown,
+    .menu > ul > li.drop-container:focus-within .dropdown {
+      display: block;
+      transition: all 300ms 0s ease;
+    }
+
+
+
+
+    .test {
+      background-color: #d8d893;
+      width: 100px;
+      height: 100px;
+      transition: all 300ms 1s ease;
+    }
+    .test:hover {
+      background-color: #842400;
+      transition: all 300ms 0s ease;
+    }
+
+
+
+  </style>
+</head>
+<body style="font-size: 1rem; line-height: 1.5rem">
+<!-- Lien d'évitement -->
+  <a class="v-hidden" href="#main">Aller au contenu</a>
+  <a class="v-hidden" href="#main">Aller au contenu</a>
+
+<ul class="test"></ul>
+
+<div aria-label="Options d'accessibilité">
+  <button onclick="zoomFont()" aria-label="augmenter la taille de police">+Aa</button>
+  <button onclick="unzoomFont()" aria-label="diminuer la taille de police">-Aa</button>
+  <button onclick="zoomLineHeigth()" aria-label="augmenter l'interligne">+Ll</button>
+  <button id="btn-dys" onclick="setDysFont()">Police Dys</button>
+  <button  onclick="setContrast()">Contrastes</button>
+</div>
+<nav class="breadcrumb">
+  <ol>
+    <li>
+      <a href="#">RGAA Guide</a>
+    </li>
+    <li>
+      <a href="#">Règles</a>
+    </li>
+    <li>
+      <a href="#" aria-current="page">Les liens</a>
+    </li>
+
+  </ol>
+</nav>
+
+<!-- Balise Nav pour la navigation principale et les navigations secondaires -->
+<nav class="menu">
+  <ul>
+    <li>
+      <a href="#">Accueil</a>
+    </li>
+    <li>
+      <a href="#">Contact</a>
+    </li>
+    <li>
+      <a href="#">Accessibilité</a>
+    </li>
+    <li class="drop-container">
+      <a href="#dropdown" class="drop-text">Autres
+      <span aria-label="dropdown" class="material-icons">arrow_drop_down</span>
+      </a>
+      <ul id="dropdown" class="dropdown">
+        <li>
+          <a href="#">Sous Lien</a>
+        </li>
+        <li>
+          <a href="#">Sous Lien</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+<header>
+  <h1>Mon Super Site</h1>
+</header>
+<main id="main">
+
+  <article aria-labelledby="super">
+    <h2 id="super">Un super contenu</h2>
+
+    <p class="bigger">Lorem <a href="#">ipsum dolor sit amet</a> , consectetur adipisicing elit. In minima natus odit placeat unde? Aliquid autem debitis dicta eos maiores, minus molestiae nisi omnis porro quas saepe soluta vel voluptatem.</p>
+    <section>
+      <h3>Tous les avantages </h3>
+      <ol>
+        <li>Avantage 1</li>
+        <li>Avantage 1</li>
+        <li>Avantage 1</li>
+        <li>Avantage 1</li>
+      </ol>
+    </section>
+
+
+    <section>
+      <h3>Glossaire</h3>
+
+      <dl>
+        <dt>Routeur</dt>
+        <dd>Je sais pas j'ai jamais compris.</dd>
+        <dt>Fibre</dt>
+        <dd>Internet qui va super vite, sauf chez Free.</dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Avis</h2>
+
+      <figure>
+        <blockquote cite="https://origine.de.la.citation.com">C'est vraiment le meilleur achat de ma vie !</blockquote>
+        <figcaption>Ma Maman, <cite><a href="google.avis">Google Avis</a></cite></figcaption>
+      </figure>
+
+      <p>Jean Micheline est super contente de son offre ADSL : <q>Je ne changerai plus jamais d'opérateur !</q></p>
+    </section>
+
+
+
+
+  </article>
+  <article aria-labelledby="lang-title">
+    <h2 id="lang-title">Les langues</h2>
+
+    <section aria-labelledby="sec-en">
+      <h3 id="sec-en">L'anglais</h3>
+      <div lang="en">
+        <p>I speak english very well !</p>
+        <p>Bryan is in the kitchen !</p>
+      </div>
+    </section>
+    <section aria-labelledby="sec-ar">
+      <h3 id="sec-ar">L'arabe</h3>
+      <div style="text-align: right" lang="ar" dir="rtl">
+        <p>لا أتكلم العربية</p>
+      </div>
+    </section>
+
+    <section>
+      <p>
+        <a aria-label="Téléphonez nous au ...." href="tel:0970010101">0970010101</a>
+      </p>
+      <p>
+        <a href="mailto:trevillon@dawan.fr">trevillon@dawan.fr</a>
+      </p>
+    </section>
+  </article>
+
+
+
+
+
+
+
+
+
+
+
+</main>
+<aside>
+  <p>Vous pourriez aussi aimer...</p>
+</aside>
+
+<footer>
+  <nav>
+    <ul>
+      <li>
+        <a href="#">Mentions légales</a>
+      </li>
+      <li>
+        <a href="#">Plan du site</a>
+      </li>
+      <li>
+        <a href="#"><span aria-label="Contacter un conseiller" class="material-icons">support_agent</span></a>
+      </li>
+    </ul>
+  </nav>
+</footer>
+
+
+<script>
+  function zoomFont() {
+    const body = document.querySelector('body');
+    const size = +body.style.fontSize.split('rem').join('');
+    console.log(body.style.fontSize);
+    console.log(size)
+    body.style.fontSize = (size + 0.2) + 'rem';
+  }
+  function unzoomFont() {
+    const body = document.querySelector('body');
+    const size = +body.style.fontSize.split('rem').join('');
+    body.style.fontSize = (size - 0.2) + 'rem';
+  }
+
+  function zoomLineHeigth() {
+    const body = document.querySelector('body');
+    const size = +body.style.lineHeight.split('rem').join('');
+    body.style.fontSize = (size - 0.2) + 'rem';
+  }
+
+  function setDysFont() {
+    const body = document.querySelector('body');
+    body.classList.toggle('dyslexia');
+    const btn = document.querySelector('#dys-btn');
+    if(body.classList.contains('dyslexia')) {
+      btn.textContent = 'Police classique'
+    } else {
+      btn.textContent = 'Police Dys'
+    }
+  }
+
+  function setContrast() {
+    const body = document.querySelector('body');
+    body.classList.toggle('contrast');
+  }
+</script>
+
+</body>
+</html>

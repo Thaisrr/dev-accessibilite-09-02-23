@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Les Alertes et status</title>
+  <style>
+    .info, .success, .error {
+      border: solid 2px;
+      border-radius: 8px;
+    }
+
+    .info {
+      background-color: aqua;
+    }
+    .success {background-color: greenyellow}
+    .error {background-color: #f86d6d
+    }
+
+    #bar {
+      width: 50%;
+      margin: auto;
+      height: 40px;
+      border: solid 2px black;
+    }
+
+    #bar .color {
+      height: 100%;
+      width: 0;
+      background-color: #2f9b9b;
+      transition: width .3s ease-in;
+    }
+
+  </style>
+</head>
+<body>
+
+<main>
+  <h1>Alertes et status</h1>
+
+  <section>
+    <h2>Rôles</h2>
+    <p>Pour les éléments qui vont s'ouvrir dynamiquement pour informer l'utilisateur.</p>
+    <!--
+    <p class="info" role="log">Ceci est juste un message d'info</p>
+    <p class="success" role="status">Vous êtes bien connecté</p>
+    <p class="error" role="alert">Attention, il y a un problème !</p>
+    -->
+  </section>
+
+  <section>
+    <h2>Exemple</h2>
+
+
+    <div>
+      <label for="name">Nom</label>
+      <input id="name" />
+      <p id="name-error" class="error" role="alert"></p>
+    </div>
+
+    <div>
+      <label for="password">Mot de passe</label>
+      <input id="password" />
+    <p id="pwd-msg" class="success" role="status"></p>
+    </div>
+
+    <p>
+      <button>M'Inscrire</button>
+    </p>
+
+  </section>
+
+  <section role="region" aria-live="polite">
+    <!-- Mode "gentil" - par défaut, sauf sur les rôles "alert": pour log, success, dialogue, modification du DOM, chat... -->
+    <p><b id="chapter">Chapitre 1</b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci dolorum, et eum fuga maiores maxime necessitatibus officiis rem suscipit vel? A accusamus commodi doloribus neque pariatur quidem voluptates. Quidem, voluptatem.</p>
+    <button onclick="changeChapter()">Chapitre suivant</button>
+  </section>
+
+  <section role="region" aria-live="assertive" aria-atomic="false">
+    <!-- Pour les erreurs, les conseils et autres messages urgents  -->
+    <p><b id="chapter-2">Chapitre 1</b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci dolorum, et eum fuga maiores maxime necessitatibus officiis rem suscipit vel? A accusamus commodi doloribus neque pariatur quidem voluptates. Quidem, voluptatem.</p>
+    <button onclick="changeChapter()">Chapitre suivant</button>
+  </section>
+
+  <section>
+    <h2>Progress</h2>
+    <button onclick="chargement()">Lancer le chargement</button>
+
+    <div id="bar" aria-label="Compte à rebours" role="progressbar" aria-live="polite" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div role="presentation" class="color"></div>
+    </div>
+  </section>
+
+  <script>
+
+    document.querySelector('#name').onblur = (e) => {
+      console.log('validate')
+      const name = e.target.value;
+      if(!name ) {
+        document.querySelector('#name-error').textContent = "Veuillez entrer un nom";
+      } else if (name.length < 2) {
+        document.querySelector('#name-error').textContent = "Votre nom est trop court";
+      } else {
+        document.querySelector('#name-error').textContent = "";
+      }
+    }
+
+    document.querySelector('#password').oninput = (e) => {
+      const password = e.target.value;
+      if(password.length > 5) {
+        document.querySelector('#pwd-msg').textContent = "Mot de passe Valide !";
+      }
+    }
+
+    let chapter = 1;
+    function changeChapter() {
+      chapter++;
+      document.querySelector('#chapter').textContent = 'Chapitre ' + chapter;
+    }
+
+    function chargement() {
+      const bar = document.querySelector('#bar');
+      const colorbar = document.querySelector('#bar .color');
+      let progress = 0;
+      const interval = setInterval(() => {
+        if(progress < 100) {
+          progress += 20;
+          progress = (progress > 100 )? 100 : progress;
+          colorbar.style.width = progress + '%';
+          bar.setAttribute('aria-valuenow', progress);
+          bar.setAttribute('aria-valuetext', `Vidéo chargé à ${progress}% `)
+        } else {
+          clearInterval(interval);
+        }
+      }, 1500)
+    }
+  </script>
+
+</main>
+
+
+</body>
+</html>
